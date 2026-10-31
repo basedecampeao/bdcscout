@@ -676,6 +676,27 @@
     .float-chip .fc-ico { width: 28px; height: 28px; }
     .ready { display: none; }
   }
+
+  /* ===== VÍDEO VERTICAL (9:16) ===== */
+  .vid-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 56px; align-items: center; }
+  .vframe { position: relative; aspect-ratio: 9 / 16; max-width: 340px; width: 100%; margin: 0 auto; border-radius: 26px; overflow: hidden; background: linear-gradient(160deg, #0A3350 0%, #031B2E 100%); border: 1px solid rgba(0,242,254,0.3); box-shadow: 0 40px 80px rgba(0,0,0,0.45), 0 0 50px rgba(0,242,254,0.07); cursor: pointer; }
+  .vframe iframe, .vframe video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #031B2E; }
+  .vposter { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 14px; text-align: center; padding: 24px 24px 34px; }
+  .vposter img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; z-index: 0; }
+  .vposter::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,27,46,0.05) 30%, rgba(3,27,46,0.88) 100%); z-index: 1; }
+  .vposter > * { position: relative; z-index: 2; }
+  .vposter > img { position: absolute; z-index: 0; }
+  .vplay { width: 84px; height: 84px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); color: var(--navy-main); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 12px rgba(219,167,65,0.18), 0 20px 40px rgba(0,0,0,0.4); transition: transform 0.2s; }
+  .vframe:hover .vplay { transform: scale(1.06); }
+  .vplay i, .vplay svg { width: 34px; height: 34px; margin-left: 4px; }
+  .vposter .t { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-weight: 800; font-size: 1.6rem; color: #FFF; line-height: 1.02; }
+  .vposter .s { font-size: 0.85rem; color: var(--text-muted); }
+  .vid-copy h2 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.02; margin: 14px 0 16px; }
+  .vid-copy > p { color: var(--text-muted); margin-bottom: 22px; max-width: 520px; }
+  .vid-copy .vid-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+  .vid-copy .vid-chips span { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-main); padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); }
+  .vid-copy .vid-chips i, .vid-copy .vid-chips svg { width: 16px; height: 16px; color: var(--cyan-accent); }
+  @media (max-width: 900px) { .vid-grid { grid-template-columns: 1fr; gap: 34px; } .vid-copy { text-align: center; } .vid-copy > p { margin-left: auto; margin-right: auto; } .vid-copy .vid-chips { justify-content: center; } }
 </style>
 </head>
 <body>
@@ -752,36 +773,25 @@
 
 <!-- ================= VÍDEO ================= -->
 <section class="sc-section alt" id="video">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="badge badge-cyan">Assista antes de criar seu perfil</span>
-      <h2 class="section-title">Veja o LinkedIn da Bola por dentro</h2>
-      <p class="section-sub">Como criar seu perfil, divulgar seu futebol e ser encontrado por clubes e agentes.</p>
+  <div class="wrap vid-grid">
+    <!-- Vídeo vertical 9:16, hospedado na raiz (bdcscout.mp4). Para trocar por YouTube, preencha data-youtube e deixe data-mp4 vazio. -->
+    <div class="vframe" id="scout-video" role="button" tabindex="0" aria-label="Assistir ao vídeo do BDC Scout"
+         data-youtube="" data-vimeo="" data-mp4="/bdcscout.mp4" data-poster="/bdcscout-capa.webp">
+      <div class="vposter" id="video-poster">
+        <div class="vplay"><i data-lucide="play"></i></div>
+        <div class="t">Crie.<br>Divulgue.<br>Seja encontrado.</div>
+        <div class="s" id="video-sub">Toque para assistir · 1 min</div>
+      </div>
     </div>
-    <div class="video-wrap">
-      <!--
-        COMO CONFIGURAR O VÍDEO:
-        Preencha UMA das opções: data-youtube (só o ID do vídeo), data-vimeo (só o número)
-        ou data-mp4 (nome do arquivo na raiz). Opcional: data-poster com uma imagem de capa.
-      -->
-      <div class="video-frame" id="scout-video" role="button" tabindex="0" aria-label="Assistir ao vídeo do BDC Scout"
-           data-youtube="" data-vimeo="" data-mp4="" data-poster="">
-        <div class="video-poster" id="video-poster">
-          <div class="play-btn"><i data-lucide="play"></i></div>
-          <div class="vp-title">Crie.<br>Divulgue.<br>Seja encontrado.</div>
-          <div class="vp-sub" id="video-sub">Clique para assistir</div>
-        </div>
-      </div>
-      <div class="video-points">
-        <span><i data-lucide="user-square"></i> Criando o perfil</span>
-        <span><i data-lucide="clapperboard"></i> Divulgando o futebol</span>
-        <span><i data-lucide="building-2"></i> Oportunidades de clubes</span>
-        <span><i data-lucide="network"></i> Rede de agentes</span>
-      </div>
+    <div class="vid-copy">
+      <span class="badge badge-cyan">Assista antes de criar seu perfil</span>
+      <h2>Veja o <span class="hl-cyan">LinkedIn da Bola</span> em um minuto</h2>
+      <p>Um recado direto do Francis sobre como o atleta cria o perfil, divulga o futebol e é encontrado por clubes e agentes.</p>
+      <div class="vid-chips"><span><i data-lucide="building-2"></i> Oportunidades de clubes</span><span><i data-lucide="network"></i> Rede de agentes parceiros</span><span><i data-lucide="user-square"></i> Perfil de atleta</span></div>
+      <a href="#planos" class="btn btn-gold" data-gtm="video-planos"><i data-lucide="id-card"></i> Criar meu perfil</a>
     </div>
   </div>
 </section>
-
 
 <!-- ================= COMO FUNCIONA ================= -->
 <section class="sc-section " id="como-funciona">
@@ -1015,13 +1025,13 @@
   (function () {
     const box = document.getElementById('scout-video'); if (!box) return;
     const yt = box.dataset.youtube.trim(), vm = box.dataset.vimeo.trim(), mp4 = box.dataset.mp4.trim(), poster = box.dataset.poster.trim();
-    if (poster) { const img = document.createElement('img'); img.src = poster; img.alt = ''; document.getElementById('video-poster').prepend(img); }
+    if (poster) { const img = document.createElement('img'); img.src = poster; img.alt = ''; img.loading = 'lazy'; document.getElementById('video-poster').prepend(img); }
     if (!(yt || vm || mp4)) { document.getElementById('video-sub').innerText = 'Vídeo em breve'; box.style.cursor = 'default'; return; }
     function play() {
       let el;
       if (yt) { el = document.createElement('iframe'); el.src = `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`; el.allow = 'autoplay; encrypted-media; picture-in-picture'; el.allowFullscreen = true; }
       else if (vm) { el = document.createElement('iframe'); el.src = `https://player.vimeo.com/video/${vm}?autoplay=1`; el.allow = 'autoplay; fullscreen; picture-in-picture'; el.allowFullscreen = true; }
-      else { el = document.createElement('video'); el.src = mp4; el.controls = true; el.autoplay = true; el.playsInline = true; }
+      else { el = document.createElement('video'); el.src = mp4; if (poster) el.poster = poster; el.controls = true; el.autoplay = true; el.playsInline = true; el.preload = 'auto'; }
       el.title = 'Vídeo do BDC Scout'; box.innerHTML = ''; box.appendChild(el); box.style.cursor = 'default';
       track('video_play', { origem: yt ? 'youtube' : vm ? 'vimeo' : 'mp4' });
       box.removeEventListener('click', play);
